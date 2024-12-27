@@ -1,0 +1,76 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MESClient.ViewModels"
+        xmlns:view="using:MESClient.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+        Width="1024" Height="768"
+        x:Class="MESClient.Views.MainView"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MESClient">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *">
+        <Grid Background="{DynamicResource TDKBackground}" RowDefinitions="Auto, *">
+            <Image PointerPressed="InputElement_OnPointerPressed" Source="{Binding SideMenuImage}"
+                   IsVisible="{Binding !SideMenuExpanded}" Margin="20" Width="38" />
+            <Image PointerPressed="InputElement_OnPointerPressed" Source="{Binding SideMenuImage}"
+                   IsVisible="{Binding SideMenuExpanded}" Margin="20" Width="220" />
+            <Border Grid.Row="1" Background="{DynamicResource PrimaryBackgroundGradient}" Padding="20"
+                    HorizontalAlignment="Stretch">
+                <Grid RowDefinitions="*, Auto">
+                    <StackPanel Spacing="12">
+                        <Button HorizontalAlignment="Stretch" Classes.active="{Binding HomeButtonIsActive}" Command="{Binding GoToHomePageCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xe2c2;"></Label>
+                                <Label Content="Home" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch" Classes.active="{Binding ProcessButtonIsActive}" Command="{Binding GoToProcessPageCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xe346;"></Label>
+                                <Label Content="Process" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xe7f2;"></Label>
+                                <Label Content="Actions" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xe3ee;"></Label>
+                                <Label Content="Macros" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xeb7a;"></Label>
+                                <Label Content="Reporter" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Classes="icon" Content="&#xe03a;"></Label>
+                                <Label Content="History" IsVisible="{Binding SideMenuExpanded}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <Button Classes="transparent" Grid.Row="1">
+                        <Label Classes="icon-only" Content="&#xe272;"></Label>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <ContentControl Grid.Column="1" Content="{Binding CurrentPage}"></ContentControl>
+    </Grid>
+</Window>
